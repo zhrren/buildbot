@@ -1,2 +1,2 @@
 pub mod auth;
-pub(crate) mod project;
+pub mod project;

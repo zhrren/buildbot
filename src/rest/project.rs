@@ -1,14 +1,19 @@
-use axum::http::{Request, StatusCode};
-use axum::response::IntoResponse;
-use axum::routing::{get, MethodRouter, post};
+use axum::http::StatusCode;
 use axum::Json;
-use serde::{Deserialize, Serialize};
+use axum::response::IntoResponse;
+use axum::routing::{MethodRouter, post};
+
+use crate::domain::project::ProjectManager;
+use crate::infra::db_project::ProjectRepoImpl;
 
 pub fn project() -> Vec<(&'static str, MethodRouter)> {
-    return vec![("/project/next_build_number", post(next_build_number))];
+  return vec![("/project/next_build_number", post(next_build_number))];
 }
 
 async fn next_build_number() -> impl IntoResponse {
-    let value = crate::domain::project::manager::next_build_number().await;
-    return Json(value);
+  // let project_repo = ProjectRepoImpl::new();
+  // let project_manager = ProjectManager::new(&project_repo);
+  // let value = project_manager.next_build_number("android-natural").await.unwrap();
+  // Json(value)
+  Json(1)
 }

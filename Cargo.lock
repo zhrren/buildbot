@@ -209,6 +209,7 @@ dependencies = [
 name = "buildbot"
 version = "1.0.0"
 dependencies = [
+ "async-trait",
  "axum",
  "dotenv",
  "lazy_static",
