@@ -1,14 +1,31 @@
-use axum::{Error, Router};
+use std::ops::Deref;
+use axum::{Error, Json, Router};
 use axum::body::Body;
+use axum::extract::State;
 use axum::http::{HeaderValue, Request};
 use axum::middleware::Next;
-use axum::response::Response;
-use axum::routing::MethodRouter;
+use axum::response::{IntoResponse, Response};
+use axum::routing::{get, MethodRouter};
 use log::info;
+use crate::domain::project::ProjectManager;
+use crate::infra::db_project::ProjectRepoImpl;
 
 use crate::kernel::settings::SETTINGS;
 use crate::rest::auth::auth;
+use crate::rest::context::Context;
 use crate::rest::project::project;
+
+lazy_static! {
+    pub static ref PROJECT_REPO: ProjectRepoImpl = {
+        ProjectRepoImpl::new()
+    };
+}
+
+lazy_static! {
+    pub static ref PROJECT_MANAGER: ProjectManager<'static> = {
+        ProjectManager::new(PROJECT_REPO.deref())
+    };
+}
 
 pub async fn serve() {
   info!(
@@ -16,8 +33,15 @@ pub async fn serve() {
         SETTINGS.app_port
     );
 
+  // let project_repo = ProjectRepoImpl::new();
+  // let project_manager = ProjectManager::new(&project_repo);
+  let context = Context {
+    project_manager: PROJECT_MANAGER.deref()
+  };
+
   let routes = [auth(), project()].concat();
-  let app = create_router(routes)
+  let app = Router::new()
+    .with_state(context)
     .layer(axum::middleware::from_fn(logging))
     .layer(axum::middleware::from_fn(validation));
   let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", SETTINGS.app_port))

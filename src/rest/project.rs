@@ -1,19 +1,23 @@
+use axum::extract::State;
 use axum::http::StatusCode;
 use axum::Json;
 use axum::response::IntoResponse;
-use axum::routing::{MethodRouter, post};
+use axum::routing::{get, MethodRouter, post};
 
 use crate::domain::project::ProjectManager;
 use crate::infra::db_project::ProjectRepoImpl;
+use crate::rest::context::Context;
 
-pub fn project() -> Vec<(&'static str, MethodRouter)> {
-  return vec![("/project/next_build_number", post(next_build_number))];
+pub fn project() -> Vec<(&'static str, MethodRouter<Context>)> {
+  return vec![("/project/next_build_number", get(next_build_number))];
 }
 
-async fn next_build_number() -> impl IntoResponse {
-  // let project_repo = ProjectRepoImpl::new();
-  // let project_manager = ProjectManager::new(&project_repo);
-  // let value = project_manager.next_build_number("android-natural").await.unwrap();
-  // Json(value)
-  Json(1)
+async fn next_build_number(State(context): State<Context>) -> Result<Json<i64>, StatusCode> {
+  // let PROJECT_REPO = ProjectRepoImpl::new();
+  // let PROJECT_MANAGER = ProjectManager::new(&PROJECT_REPO);
+  // let value = PROJECT_MANAGER.next_build_number("android-natural").await;
+  Ok(Json(1))
+
+  // Json(1)
 }
+
