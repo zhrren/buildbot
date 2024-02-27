@@ -1,20 +1,18 @@
-use std::fmt::Error;
-use sqlx::sqlite::{SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions};
-use sqlx::{query_as, Pool, Sqlite};
 use std::ops::Deref;
+
 use async_trait::async_trait;
-use serde::{Deserialize, Serialize};
+use sqlx::query_as;
 
 use crate::domain::project::{Project, ProjectRepo};
-use crate::infra::db::POOL;
-use crate::kernel::meta::Meta;
 
 #[derive(Debug)]
-pub struct ProjectRepoImpl { }
+pub struct ProjectRepoImpl {
+  pool: &'static sqlx::Pool<sqlx::Sqlite>,
+}
 
 impl ProjectRepoImpl {
-  pub fn new() -> Self {
-    Self {}
+  pub fn new(pool: &'static sqlx::Pool<sqlx::Sqlite>) -> Self {
+    Self { pool }
   }
 }
 
@@ -22,7 +20,7 @@ impl ProjectRepoImpl {
 impl ProjectRepo for ProjectRepoImpl {
   async fn get(&self, app_name: &str) -> Result<Project, sqlx::Error> {
     let item = query_as!(Project, "select id,app_name,build_number from t_project where app_name = ?", app_name)
-      .fetch_one(POOL.deref())
+      .fetch_one(self.pool.deref())
       .await;
     return item;
   }
@@ -31,7 +29,7 @@ impl ProjectRepo for ProjectRepoImpl {
     todo!()
   }
 
-  async fn delete(&self, app_name: & str) {
+  async fn delete(&self, app_name: &str) {
     todo!()
   }
 
