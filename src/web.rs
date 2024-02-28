@@ -22,7 +22,7 @@ pub async fn serve() {
     );
 
   let routes = [auth(), project()].concat();
-  let app = Router::new()
+  let app = create_router(routes)
     .layer(axum::middleware::from_fn(logging))
     .layer(axum::middleware::from_fn(validation));
   let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", SETTINGS.app_port))
@@ -32,7 +32,7 @@ pub async fn serve() {
 }
 
 lazy_static! {
-    static ref ANONYMOUS_ROUTES: Vec<&'static str> = vec!["/auth/get_token","/project/next_build_number"];
+    static ref ANONYMOUS_ROUTES: Vec<&'static str> = vec!["/auth/token","/project/next_build_number"];
 }
 
 fn create_router(routes: Vec<(&'static str, MethodRouter)>) -> Router {

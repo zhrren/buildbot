@@ -1,6 +1,7 @@
 use std::fmt::{Debug, Error};
 
 use async_trait::async_trait;
+use nject::injectable;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -18,6 +19,7 @@ pub trait ProjectRepo: Debug {
   async fn find(&self) -> Vec<Project>;
 }
 
+#[injectable]
 #[derive(Debug)]
 pub struct ProjectManager<'a> {
   repo: &'a (dyn ProjectRepo),
