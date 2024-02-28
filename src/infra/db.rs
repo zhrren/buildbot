@@ -1,7 +1,7 @@
 use std::str::FromStr;
 use std::time::Duration;
 
-use sqlx::{Connection, ConnectOptions, Executor, Pool, Sqlite};
+use sqlx::{Connection, ConnectOptions, Executor, Pool, Sqlite, SqlitePool};
 use sqlx::sqlite::{SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions};
 
 use crate::kernel::SETTINGS;
@@ -10,7 +10,7 @@ const INITIAL_SQL: &str = r"
 create table if not exists t_project (id integer primary key NOT NULL, app_name text NOT NULL, build_number integer NOT NULL);
 ";
 
-pub async fn create_pool() -> Pool<Sqlite> {
+pub async fn create_pool() -> SqlitePool {
   let db_options = SqliteConnectOptions::from_str(SETTINGS.database_url.as_str())
     .unwrap()
     .journal_mode(SqliteJournalMode::Wal)

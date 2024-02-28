@@ -1,5 +1,5 @@
 use nject::{injectable, module, provider};
-use sqlx::SqlitePool;
+use sqlx::{Pool, Sqlite, SqlitePool};
 use std::ops::Deref;
 
 use crate::domain::project::ProjectRepo;
@@ -26,12 +26,19 @@ pub struct Module {
 pub struct ModuleProvider {
   #[import]
   module: Module,
+
+  #[inject(SqlitePool::connect_lazy("file::memory:?cache=shared").expect("Invalid database URL"))]
+  pool: SqlitePool,
 }
 
 #[provider]
 pub struct Provider {
-  db_pool: SqlitePool,
+  // #[provide]
+  // db_pool: Pool<Sqlite>,
 }
+
+// #[provider]
+// pub struct Provider;
 
 lazy_static! {
   pub static ref GET_IT: &'static Provider = {
@@ -39,7 +46,9 @@ lazy_static! {
       .unwrap()
       .block_on(async { create_pool().await });
 
-    let provider = Provider { db_pool };
+    let provider = Provider{  };
+    // let pool = provider.provide::<SqlitePool>();
+    // println!("{}", pool.size());
 
     let get_it: &'static Provider = Box::leak(Box::new(provider));
     return get_it;
