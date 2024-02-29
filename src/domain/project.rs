@@ -1,7 +1,7 @@
 use std::fmt::{Debug, Error};
+use std::rc::Rc;
 
 use async_trait::async_trait;
-use nject::injectable;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -12,26 +12,18 @@ pub(crate) struct Project {
 }
 
 #[async_trait]
-pub trait ProjectRepo: Debug {
+pub trait ProjectRepo {
   async fn get(&self, app_name: &str) -> Result<Project, sqlx::Error>;
   async fn save(&self, project: &Project);
   async fn delete(&self, app_name: &str);
   async fn find(&self) -> Vec<Project>;
 }
 
-#[injectable]
-#[derive(Debug)]
-pub struct ProjectManager<'a> {
-  repo: &'a (dyn ProjectRepo),
+pub struct ProjectManager {
+  repo: Rc<dyn ProjectRepo>,
 }
 
-impl<'a> ProjectManager<'_> {
-  pub fn new(repo: &(dyn ProjectRepo)) -> ProjectManager {
-    return ProjectManager {
-      repo
-    };
-  }
-
+impl ProjectManager {
   pub async fn next_build_number(&self, app_name: &str) -> Result<i64, Error> {
     return Ok(112);
   }

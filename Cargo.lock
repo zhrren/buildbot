@@ -215,7 +215,7 @@ dependencies = [
  "lazy_static",
  "log",
  "log4rs",
- "nject",
+ "more-di",
  "serde",
  "serde_json",
  "sqlx",
@@ -943,6 +943,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "more-di"
+version = "3.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f263611311a2012c4b8e7191e6906ed963e906d12a3b0dc679e4077c5f2dfb89"
+dependencies = [
+ "more-di-macros",
+ "spin 0.9.8",
+]
+
+[[package]]
+name = "more-di-macros"
+version = "3.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4b04d5dd4cddcb6fc4b763cedfab4bdb543011130d2cfcdf4e755a7976494ce3"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.50",
+]
+
+[[package]]
 name = "nix"
 version = "0.27.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -951,26 +972,6 @@ dependencies = [
  "bitflags 2.4.2",
  "cfg-if",
  "libc",
-]
-
-[[package]]
-name = "nject"
-version = "0.4.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "60efff7f3e30e2c31f026f966b7cb0d21a03bc556eaaa6769c509a7a4de0b3af"
-dependencies = [
- "nject-macro",
-]
-
-[[package]]
-name = "nject-macro"
-version = "0.4.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0928ae32a641a141ea020775ce08a47c37666f6253551920ad176aacec21be3a"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.50",
 ]
 
 [[package]]

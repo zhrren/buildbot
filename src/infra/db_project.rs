@@ -1,15 +1,10 @@
-use std::ops::Deref;
-
 use async_trait::async_trait;
-use nject::injectable;
-use sqlx::{Pool, query_as, Sqlite, SqlitePool};
+use sqlx::SqlitePool;
 
 use crate::domain::project::{Project, ProjectRepo};
 
-#[injectable]
 #[derive(Debug)]
 pub struct ProjectRepoImpl {
-  #[inject(SqlitePool::connect_lazy("file::memory:?cache=shared").expect("Invalid database URL"))]
   pool: SqlitePool,
 
 }

@@ -1,7 +1,7 @@
 use std::str::FromStr;
 use std::time::Duration;
 
-use sqlx::{Connection, ConnectOptions, Executor, Pool, Sqlite, SqlitePool};
+use sqlx::{Connection, ConnectOptions, Executor, SqlitePool};
 use sqlx::sqlite::{SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions};
 
 use crate::kernel::SETTINGS;
