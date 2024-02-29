@@ -1,12 +1,13 @@
+use std::sync::Arc;
 use async_trait::async_trait;
-use sqlx::SqlitePool;
+use di::injectable;
+use sqlx::{Pool, Sqlite, SqlitePool};
 
 use crate::domain::project::{Project, ProjectRepo};
 
-#[derive(Debug)]
+#[injectable(ProjectRepo)]
 pub struct ProjectRepoImpl {
-  pool: SqlitePool,
-
+  pool: Arc<Pool<Sqlite>>
 }
 
 #[async_trait]

@@ -1,12 +1,12 @@
 use std::ops::Deref;
 
-use axum::{Error, Json, RequestExt, Router};
 use axum::body::Body;
 use axum::extract::State;
 use axum::http::{HeaderValue, Request};
 use axum::middleware::Next;
 use axum::response::{IntoResponse, Response};
 use axum::routing::{get, MethodRouter};
+use axum::{Error, Json, RequestExt, Router};
 use log::info;
 
 use crate::domain::project::ProjectManager;
@@ -17,9 +17,9 @@ use crate::rest::project::project;
 
 pub async fn serve() {
   info!(
-        "web server starting on port http://127.0.0.1:{}",
-        SETTINGS.app_port
-    );
+    "web server starting on port http://127.0.0.1:{}",
+    SETTINGS.app_port
+  );
 
   let routes = [auth(), project()].concat();
   let app = create_router(routes)
@@ -29,10 +29,6 @@ pub async fn serve() {
     .await
     .unwrap();
   axum::serve(listener, app).await.unwrap();
-}
-
-lazy_static! {
-    static ref ANONYMOUS_ROUTES: Vec<&'static str> = vec!["/auth/token","/project/next_build_number"];
 }
 
 fn create_router(routes: Vec<(&'static str, MethodRouter)>) -> Router {
@@ -71,4 +67,9 @@ async fn validation(request: Request<Body>, next: Next) -> Response {
   }
 
   next.run(request).await
+}
+
+lazy_static! {
+  static ref ANONYMOUS_ROUTES: Vec<&'static str> =
+    vec!["/auth/token", "/project/next_build_number"];
 }
