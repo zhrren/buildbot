@@ -1,15 +1,7 @@
 use std::any::Any;
-use std::str::FromStr;
 use std::sync::Arc;
-use std::time::Duration;
-use async_once::AsyncOnce;
-use derivative::Derivative;
 
-use di::{existing, existing_as_self, Injectable, injectable, Ref, ServiceCollection, ServiceProvider};
-use sqlx::sqlite::{SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions};
-use sqlx::{Executor, Pool, Sqlite, SqlitePool};
-use crate::infra::db_project::ProjectRepoImpl;
-use crate::kernel::SETTINGS;
+use di::{existing, injectable, Injectable, Ref, ServiceCollection, ServiceProvider};
 
 lazy_static! {
   static ref DI: ServiceProvider = {
@@ -24,7 +16,7 @@ lazy_static! {
 }
 
 pub fn get_it<T: Any + ?Sized>() -> Ref<T> {
-  return DI.get_required::<T>()
+  return DI.get_required::<T>();
 }
 
 pub trait Phrase {

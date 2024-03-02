@@ -8,10 +8,6 @@ use sqlx::sqlite::{SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions};
 
 use crate::kernel::SETTINGS;
 
-const INITIAL_SQL: &str = r"
-create table if not exists t_project (id integer primary key NOT NULL, app_name text NOT NULL, build_number integer NOT NULL);
-";
-
 pub async fn create_pool() -> Pool<Sqlite> {
   let db_options = SqliteConnectOptions::from_str(SETTINGS.database_url.as_str())
     .unwrap()
@@ -24,8 +20,6 @@ pub async fn create_pool() -> Pool<Sqlite> {
     .connect_with(db_options)
     .await
     .unwrap();
-
-  pool.execute_many(INITIAL_SQL);
 
   return pool;
 }

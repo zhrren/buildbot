@@ -2,10 +2,14 @@ use std::fmt::{Debug, Error};
 use std::rc::Rc;
 
 use async_trait::async_trait;
+use diesel::{Queryable, Selectable};
 use serde::{Deserialize, Serialize};
 
+#[derive(Queryable, Selectable)]
+#[diesel(table_name = crate::schema::project)]
+#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 #[derive(Debug, Serialize, Deserialize)]
-pub(crate) struct Project {
+pub struct Project {
   pub id: i64,
   pub app_name: String,
   pub build_number: i64,
@@ -29,6 +33,3 @@ impl ProjectManager {
   }
 }
 
-pub async fn next_build_number2(app_name: &str) -> Result<i64, Error> {
-  return Ok(112);
-}

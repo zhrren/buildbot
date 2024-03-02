@@ -3,8 +3,6 @@ name = "buildbot"
 version = "1.0.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 serde = { version = "1.0.196", features = ["derive"] }
 serde_json = "1.0.113"
@@ -19,8 +17,15 @@ log4rs = "1.3.0"
 
 axum = "0.7.4"
 sqlx = { version = "0.7", features = [ "runtime-tokio", "sqlite" ] }
+diesel = { version = "2.1.4", features = ["sqlite"] }
 derivative = "2.2.0"
 
-
-
-
+# cargo install diesel_cli --no-default-features --features postgres,sqlite
+# brew install libpq
+# brew install mysql-client
+# diesel setup
+# diesel migration generate initial
+# diesel migration run
+# diesel migration redo
+# diesel migration revert
+# diesel migration generate --diff-schema initial
