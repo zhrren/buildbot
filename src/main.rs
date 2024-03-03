@@ -10,7 +10,6 @@ use log::{error, info, warn};
 use log4rs;
 
 use crate::config::inject_config::{get_it, Person, Phrase};
-use crate::infra::DB_POOL;
 
 mod domain;
 mod kernel;
@@ -18,7 +17,6 @@ mod rest;
 mod web;
 mod infra;
 mod config;
-mod schema;
 
 #[tokio::main]
 async fn main() {
