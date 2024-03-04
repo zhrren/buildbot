@@ -3,8 +3,6 @@ use axum::response::IntoResponse;
 use axum::routing::{get, MethodRouter};
 use serde::{Deserialize, Serialize};
 
-use crate::domain::project::ProjectRepo;
-
 pub fn auth() -> Vec<(&'static str, MethodRouter)> {
   return vec![("/auth/token", get(token))];
 }

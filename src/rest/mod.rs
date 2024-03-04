@@ -1,7 +1,5 @@
 use std::ops::Deref;
 
-use crate::domain::project::ProjectRepo;
-
 pub mod auth;
 pub mod project;
 

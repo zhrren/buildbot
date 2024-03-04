@@ -9,8 +9,6 @@ use axum::routing::{get, MethodRouter};
 use axum::{Error, Json, RequestExt, Router};
 use log::info;
 
-use crate::domain::project::ProjectManager;
-use crate::infra::db_project::ProjectRepoImpl;
 use crate::kernel::SETTINGS;
 use crate::rest::auth::auth;
 use crate::rest::project::project;

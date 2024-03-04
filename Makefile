@@ -14,6 +14,10 @@ clean:
 fix:
 	$(HIDE)cargo fmt
 
+gen:
+	$(HIDE)which sea-orm-cli >/dev/null || cargo install sea-orm-cli
+	$(HIDE)sea-orm-cli generate entity -o src/domain/entity
+
 build:
 	$(HIDE)cargo build
 
