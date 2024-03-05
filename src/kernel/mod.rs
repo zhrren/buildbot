@@ -2,7 +2,6 @@ use std::env;
 
 use crate::kernel::settings::Settings;
 
-pub mod meta;
 pub mod settings;
 
 lazy_static! {

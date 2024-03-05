@@ -12,8 +12,9 @@ use log4rs;
 use sea_orm::ActiveValue::Set;
 use sea_orm::{ActiveModelTrait, ConnectionTrait};
 
-use crate::config::inject_config::{get_it, Person, Phrase};
+use crate::config::inject_config::{get_it};
 use crate::domain::entity::project;
+use crate::domain::project_manager::ProjectManager;
 use crate::infra::db::create_pool;
 
 mod kernel;
@@ -22,6 +23,7 @@ mod web;
 mod infra;
 mod config;
 mod domain;
+mod util;
 
 #[tokio::main]
 async fn main() {
@@ -41,7 +43,11 @@ async fn main() {
     .await
     .expect("could not insert post");
 
+  let project_manager = ProjectManager{};
+  let result = project_manager.create_project("app_name".to_string(), 1).await;
+  info!("result: {:?}", result.ok());
   info!("application starting...");
+
   web::serve().await;
 }
 
