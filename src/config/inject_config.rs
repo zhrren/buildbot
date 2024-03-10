@@ -2,15 +2,17 @@ use std::any::Any;
 use std::sync::Arc;
 
 use crate::domain::generator::Generator;
-use crate::domain::project::ProjectManager;
-use crate::infra::db::DbClient;
+use crate::domain::project_manager::ProjectManager;
+use crate::infra::db_client::DbClient;
 use crate::infra::db_project::ProjectRepoImpl;
 use di::{
   existing, existing_as_self, injectable, Injectable, Ref, ServiceCollection, ServiceProvider,
 };
+use log::info;
+use crate::util::rest::Rest;
 
 lazy_static! {
-  static ref DI: ServiceProvider = {
+  pub static ref DI: ServiceProvider = {
     let provider = ServiceCollection::new()
     // .add(existing::<dyn Phrase,EnglishPhase>(Box::new(EnglishPhase)))
     .add(Generator::singleton())

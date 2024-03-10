@@ -6,6 +6,7 @@ use std::any::{type_name, Any};
 use std::ops::Deref;
 use std::rc::Rc;
 use std::sync::Arc;
+use std::vec;
 
 use di::{injectable, Injectable, Ref, ServiceCollection, ServiceProvider};
 use log::{error, info, warn};
@@ -13,11 +14,14 @@ use log4rs;
 use sea_orm::ActiveValue::Set;
 use sea_orm::{ActiveModelTrait, ConnectionTrait, DatabaseConnection};
 
-use crate::config::inject_config::get_it;
+use crate::config::inject_config::{DI, get_it};
 use crate::domain::entity::project;
 use crate::domain::generator::Generator;
-use crate::domain::project::{ProjectManager, ProjectRepo};
-use crate::infra::db::DbClient;
+use crate::domain::project_manager::{ProjectManager, ProjectRepo};
+use crate::infra::db_client::DbClient;
+use crate::rest::{auth_rest, main_rest};
+use crate::util::build_util::{BuildUtil};
+use crate::util::rest::Rest;
 
 mod config;
 mod domain;
@@ -35,5 +39,6 @@ async fn main() {
   get_it::<Generator>().configure();
   get_it::<DbClient>().configure().await;
 
-  web::serve().await;
+  let routes = [auth_rest::routes(), main_rest::routes()].concat();
+  web::serve(routes).await;
 }

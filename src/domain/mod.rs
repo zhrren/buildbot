@@ -1,3 +1,3 @@
 pub mod entity;
 pub mod generator;
-pub mod project;
+pub mod project_manager;

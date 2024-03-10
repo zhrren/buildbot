@@ -1,7 +1,7 @@
 use std::ops::Deref;
 
-pub mod auth;
-pub mod project;
+pub mod auth_rest;
+pub mod main_rest;
 
 // lazy_static! {
 //   pub static ref GET_IT: &'static Provider = {
