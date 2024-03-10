@@ -51,6 +51,9 @@ async fn main() {
   // info!("result: {:?}", result.ok());
   // info!("application starting...");
 
+  let project_manager = get_it::<ProjectManager>();
+  project_manager.create_project("app_name".to_string(), 1).await;
+
   let db_client = get_it::<DbClient>();
   let conn = db_client.get_connection().await;
   project::ActiveModel {
@@ -68,4 +71,3 @@ async fn main() {
 
   web::serve().await;
 }
-
