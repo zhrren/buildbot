@@ -1,23 +1,16 @@
 #[macro_use]
 extern crate lazy_static;
 
-use chrono::{Local, Utc};
-use std::any::{type_name, Any};
+use std::any::Any;
 use std::ops::Deref;
-use std::rc::Rc;
-use std::sync::Arc;
-use std::vec;
 
-use di::{injectable, Injectable, Ref, ServiceCollection, ServiceProvider};
-use log::{error, info, warn};
+use di::Injectable;
 use log4rs;
-use sea_orm::ActiveValue::Set;
-use sea_orm::{ActiveModelTrait, ConnectionTrait, DatabaseConnection};
+use sea_orm::{ActiveModelTrait, ConnectionTrait};
 
-use crate::config::inject_config::{get_it, DI};
-use crate::domain::entity::project;
+use crate::config::inject_config::get_it;
 use crate::domain::generator::Generator;
-use crate::domain::project_manager::{ProjectManager, ProjectRepo};
+use crate::domain::project_manager::ProjectRepo;
 use crate::infra::db_client::DbClient;
 use crate::rest::{auth_rest, main_rest};
 

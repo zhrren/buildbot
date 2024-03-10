@@ -1,13 +1,10 @@
-use idgenerator_thin::{IdGeneratorOptions, YitIdHelper};
-use migration::{Migrator, MigratorTrait};
-use std::cell::RefCell;
-use std::ops::Deref;
-use std::rc::Rc;
 use std::sync::{Arc, RwLock};
 use std::time::Duration;
 
+use migration::{Migrator, MigratorTrait};
+use sea_orm::{ConnectOptions, Database, DatabaseConnection};
+
 use crate::kernel::SETTINGS;
-use sea_orm::{ConnectOptions, Database, DatabaseConnection, DbConn};
 
 pub struct DbClient {
   connection: RwLock<Option<Arc<DatabaseConnection>>>,

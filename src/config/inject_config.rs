@@ -1,14 +1,13 @@
 use std::any::Any;
-use std::sync::Arc;
+
+use di::{
+  existing_as_self, Injectable, Ref, ServiceCollection, ServiceProvider,
+};
 
 use crate::domain::generator::Generator;
 use crate::domain::project_manager::ProjectManager;
 use crate::infra::db_client::DbClient;
 use crate::infra::db_project::ProjectRepoImpl;
-use di::{
-  existing, existing_as_self, injectable, Injectable, Ref, ServiceCollection, ServiceProvider,
-};
-use log::info;
 
 lazy_static! {
   pub static ref DI: ServiceProvider = {

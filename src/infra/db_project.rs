@@ -2,8 +2,8 @@ use std::sync::Arc;
 
 use async_trait::async_trait;
 use di::injectable;
-use sea_orm::ActiveValue::Set;
 use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, IntoActiveModel, QueryFilter};
+use sea_orm::ActiveValue::Set;
 
 use crate::domain::entity::prelude::Project;
 use crate::domain::entity::project;

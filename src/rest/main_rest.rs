@@ -1,6 +1,6 @@
 use axum::http::StatusCode;
-use axum::routing::{get, MethodRouter};
 use axum::Json;
+use axum::routing::{get, MethodRouter};
 
 pub fn routes() -> Vec<(String, MethodRouter)> {
   return vec![("/gen_build_number".to_string(), get(gen_build_number))];
