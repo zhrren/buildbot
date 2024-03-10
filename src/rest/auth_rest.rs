@@ -1,10 +1,11 @@
+use axum::http::StatusCode;
 use axum::response::IntoResponse;
 use axum::routing::{get, MethodRouter};
 use axum::Json;
 use serde::{Deserialize, Serialize};
 
-pub fn auth() -> Vec<(&'static str, MethodRouter)> {
-  return vec![("/auth/token", get(token))];
+pub fn routes() -> Vec<(String, MethodRouter)> {
+  return vec![("/auth/token".to_string(), get(token))];
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

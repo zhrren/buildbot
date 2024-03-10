@@ -1,3 +1,4 @@
+use chrono::Utc;
 use di::injectable;
 use idgenerator_thin::{IdGeneratorOptions, YitIdHelper};
 
@@ -14,5 +15,9 @@ impl Generator {
 
   pub fn unique_id(&self) -> i64 {
     return YitIdHelper::next_id();
+  }
+
+  pub fn now(&self) -> String {
+    return Utc::now().to_rfc3339();
   }
 }

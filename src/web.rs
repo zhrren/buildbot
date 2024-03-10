@@ -10,16 +10,13 @@ use axum::{Error, Json, RequestExt, Router};
 use log::info;
 
 use crate::kernel::SETTINGS;
-use crate::rest::auth::auth;
-use crate::rest::project::project;
 
-pub async fn serve() {
+pub async fn serve(routes: Vec<(String, MethodRouter)>) {
   info!(
     "web server starting on port http://127.0.0.1:{}",
     SETTINGS.app_port
   );
 
-  let routes = [auth(), project()].concat();
   let app = create_router(routes)
     .layer(axum::middleware::from_fn(logging))
     .layer(axum::middleware::from_fn(validation));
@@ -29,10 +26,10 @@ pub async fn serve() {
   axum::serve(listener, app).await.unwrap();
 }
 
-fn create_router(routes: Vec<(&'static str, MethodRouter)>) -> Router {
+fn create_router(routes: Vec<(String, MethodRouter)>) -> Router {
   let mut app = Router::new();
   for route in routes {
-    app = app.route(route.0, route.1)
+    app = app.route(route.0.as_str(), route.1)
   }
   return app;
 }
@@ -68,6 +65,5 @@ async fn validation(request: Request<Body>, next: Next) -> Response {
 }
 
 lazy_static! {
-  static ref ANONYMOUS_ROUTES: Vec<&'static str> =
-    vec!["/auth/token", "/project/next_build_number"];
+  static ref ANONYMOUS_ROUTES: Vec<&'static str> = vec!["/auth/token", "/gen_build_number"];
 }
