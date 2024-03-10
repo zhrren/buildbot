@@ -15,15 +15,22 @@ impl fmt::Display for Meta {
   }
 }
 
-impl Error for Meta {
-}
+impl Error for Meta {}
 
 #[macro_export]
 macro_rules! meta {
-    ($name: expr) => {
-        Meta { name: $name.to_string(), message: "".to_string() }.into()
-    };
-    ($name: expr, $message: expr) => {
-        Meta { name: $name.to_string(), message: $message.to_string() }.into()
-    };
+  ($name: expr) => {
+    Meta {
+      name: $name.to_string(),
+      message: "".to_string(),
+    }
+    .into()
+  };
+  ($name: expr, $message: expr) => {
+    Meta {
+      name: $name.to_string(),
+      message: $message.to_string(),
+    }
+    .into()
+  };
 }

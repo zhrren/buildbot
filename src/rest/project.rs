@@ -1,6 +1,6 @@
 use axum::http::StatusCode;
-use axum::Json;
 use axum::routing::{get, MethodRouter};
+use axum::Json;
 
 pub fn project() -> Vec<(&'static str, MethodRouter)> {
   return vec![("/project/next_build_number", get(next_build_number))];
@@ -14,4 +14,3 @@ async fn next_build_number() -> Result<Json<i64>, StatusCode> {
 
   // Json(1)
 }
-

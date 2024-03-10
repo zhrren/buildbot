@@ -549,6 +549,7 @@ dependencies = [
  "chrono",
  "derivative",
  "dotenv",
+ "idgenerator-thin",
  "lazy_static",
  "log",
  "log4rs",
@@ -1312,6 +1313,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f31827a206f56af32e590ba56d5d2d085f558508192593743f16b2306495269f"
 dependencies = [
  "cc",
+]
+
+[[package]]
+name = "idgenerator-thin"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c02289184d22cc157fa7a91b8db8c6c46884b4cfb54b1cf88d72acd30a98cf9a"
+dependencies = [
+ "chrono",
 ]
 
 [[package]]

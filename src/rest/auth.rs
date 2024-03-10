@@ -1,6 +1,6 @@
-use axum::Json;
 use axum::response::IntoResponse;
 use axum::routing::{get, MethodRouter};
+use axum::Json;
 use serde::{Deserialize, Serialize};
 
 pub fn auth() -> Vec<(&'static str, MethodRouter)> {
@@ -18,4 +18,3 @@ async fn token() -> impl IntoResponse {
   };
   Json(result)
 }
-

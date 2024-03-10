@@ -3,7 +3,6 @@ use std::ops::Deref;
 pub mod auth;
 pub mod project;
 
-
 // lazy_static! {
 //   pub static ref GET_IT: &'static Provider = {
 //     let db_pool: SqlitePool = tokio::runtime::Runtime::new()
