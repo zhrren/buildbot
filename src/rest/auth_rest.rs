@@ -1,6 +1,6 @@
-use axum::Json;
 use axum::response::IntoResponse;
 use axum::routing::{get, MethodRouter};
+use axum::Json;
 use serde::{Deserialize, Serialize};
 
 pub fn routes() -> Vec<(String, MethodRouter)> {

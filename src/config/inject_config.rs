@@ -1,8 +1,6 @@
 use std::any::Any;
 
-use di::{
-  existing_as_self, Injectable, Ref, ServiceCollection, ServiceProvider,
-};
+use di::{existing_as_self, Injectable, Ref, ServiceCollection, ServiceProvider};
 
 use crate::domain::generator::Generator;
 use crate::domain::project_manager::ProjectManager;
