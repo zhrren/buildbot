@@ -1,6 +1,6 @@
 use std::sync::Arc;
+use axum::async_trait;
 
-use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 use di::injectable;
 use log::info;
@@ -13,7 +13,7 @@ use crate::util::build_util::BuildUtil;
 use crate::util::meta::Meta;
 
 #[async_trait]
-pub trait ProjectRepo {
+pub trait ProjectRepo where Self: Send + Sync {
   async fn create(&self, model: project::Model) -> anyhow::Result<project::Model>;
   async fn update(&self, model: project::Model) -> anyhow::Result<project::Model>;
   async fn delete(&self, model: project::Model) -> anyhow::Result<u64>;

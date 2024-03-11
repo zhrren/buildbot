@@ -1,6 +1,6 @@
 use std::sync::Arc;
+use axum::async_trait;
 
-use async_trait::async_trait;
 use di::injectable;
 use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, IntoActiveModel, QueryFilter};
 use sea_orm::ActiveValue::Set;
