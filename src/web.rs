@@ -9,7 +9,7 @@ use axum::routing::{get, MethodRouter};
 use axum::{Error, Json, RequestExt, Router};
 use log::info;
 
-use crate::kernel::SETTINGS;
+use crate::kernel::settings::SETTINGS;
 
 pub async fn serve(routes: Vec<(String, MethodRouter)>) {
   info!(

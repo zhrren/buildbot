@@ -10,5 +10,5 @@ FROM registry.cn-zhangjiakou.aliyuncs.com/publicci/alpine:3.19.1
 COPY --from=0 /workspace/src/target/release/buildbot /workspace/apps/
 
 WORKDIR /workspace/apps
-EXPOSE 10243
+EXPOSE 10940
 CMD ./buildbot

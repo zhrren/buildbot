@@ -4,7 +4,7 @@ HIDE ?= @
 .PHONY: build
 
 name := "buildbot"
-port := 10243
+port := 10940
 
 ## ALIYUN_REGISTRY, ALIYUN_USERNAME, ALIYUN_REGISTRY_PWD,
 

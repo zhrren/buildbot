@@ -4,7 +4,7 @@ use std::time::Duration;
 use migration::{Migrator, MigratorTrait};
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 
-use crate::kernel::SETTINGS;
+use crate::kernel::settings::SETTINGS;
 
 pub struct DbClient {
   connection: RwLock<Option<Arc<DatabaseConnection>>>,
